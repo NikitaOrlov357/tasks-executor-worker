@@ -3,16 +3,17 @@ package com.nesterov.tasksexecutor.worker.scheduler.services;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SchedulerService {
+public class SchedulerService extends Thread {
 
-    public SchedulerService() throws InterruptedException {
-        run();
-    }
-
-    public void run() throws InterruptedException {
+    @Override
+    public void run() {
         while(true){
             System.out.println("hello world");
-            Thread.sleep(5000);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

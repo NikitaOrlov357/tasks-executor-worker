@@ -4,7 +4,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class Config {
 
     private String url;
@@ -24,6 +26,9 @@ public class Config {
     public HikariDataSource getHikariDataSource (){
         HikariConfig hc = new HikariConfig();
         hc.setUsername(user);
+        hc.setPassword(password);
+        hc.setJdbcUrl(url);
+        HikariDataSource hds = new HikariDataSource(hc);
         return hds;
     }
 

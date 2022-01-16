@@ -15,12 +15,14 @@ public class RegularTasksDao implements CommandsDao {
 
     public RegularTasksDao (HikariDataSource hikariDataSource){
         this.hikariDataSource = hikariDataSource;
+        System.out.println(getCurrentTasks());
     }
 
     public List getCurrentTasks(){
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);//положить dataSource в аргумент
-        String sql = "SELECT * FROM scheduler";//sql запрос
+        long unixTime = System.currentTimeMillis() / 1000L;
+        String sql = String.format("SELECT * FROM commands WHERE (%d - start) % regularity = 0", unixTime);//sql запрос
 
         return jdbcTemplate.query(
                 sql,

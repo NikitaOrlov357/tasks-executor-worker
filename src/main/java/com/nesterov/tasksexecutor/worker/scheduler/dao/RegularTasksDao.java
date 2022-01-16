@@ -15,9 +15,15 @@ import java.util.List;
 @Repository
 public class RegularTasksDao implements CommandsDao {
 
+    private final HikariDataSource hikariDataSource;
+
+    public RegularTasksDao (HikariDataSource hikariDataSource){
+        this.hikariDataSource = hikariDataSource;
+    }
+
     public List getCurrentTasks(){
-        HikariDataSource hds = new HikariDataSource();
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(hds);//положить dataSource в аргумент
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);//положить dataSource в аргумент
         String sql = "SELECT * FROM scheduler";//sql запрос
 
         return jdbcTemplate.query(

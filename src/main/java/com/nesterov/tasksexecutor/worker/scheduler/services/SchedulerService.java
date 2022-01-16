@@ -1,9 +1,15 @@
 package com.nesterov.tasksexecutor.worker.scheduler.services;
 
+import com.nesterov.tasksexecutor.worker.scheduler.dao.RegularTasksDao;
+import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SchedulerService extends Thread {
+
+    RegularTasksDao regularTasksDao ;
 
     @Override
     public void run() {
@@ -16,4 +22,10 @@ public class SchedulerService extends Thread {
             }
         }
     }
+
+
+    public List getAllCommands (){
+        return regularTasksDao.getCurrentTasks();
+    }
+
 }

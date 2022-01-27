@@ -3,11 +3,13 @@ package com.nesterov.tasksexecutor.worker.scheduler.dao;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.interfaces.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Slf4j
 @Repository
 public class RegularTasksDao implements CommandsDao {
 
@@ -22,7 +24,8 @@ public class RegularTasksDao implements CommandsDao {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);//положить dataSource в аргумент
         long unixTime = System.currentTimeMillis() / 1000L;
-        String sql = String.format("SELECT * FROM commands WHERE (%d - start) % regularity = 0", unixTime);//sql запрос
+        String sql = " SELECT * FROM commands WHERE (((" + unixTime + " - start) / 1000) % " + " regularity) " + " = 0 ";//sql запрос
+        log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(
                 sql,

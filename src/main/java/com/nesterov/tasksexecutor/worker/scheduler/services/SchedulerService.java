@@ -11,12 +11,17 @@ public class SchedulerService extends Thread {
 
     RegularTasksDao regularTasksDao ;
 
+    public SchedulerService (RegularTasksDao regularTasksDao){
+        this.regularTasksDao = regularTasksDao;
+    }
+
     @Override
     public void run() {
         while(true){
             System.out.println("hello world");
             try {
-                Thread.sleep(5000);
+                System.out.println(getAllCommands());
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

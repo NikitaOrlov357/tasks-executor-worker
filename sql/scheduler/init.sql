@@ -6,7 +6,7 @@ CREATE TABLE commands(
     type       VARCHAR   NOT NULL, -- тип команды
     regularity BIGINT    NOT NULL, -- регулярность выполнения в секундах
     start      BIGINT    NOT NULL, -- время начала работы "UNIX_TIME"
-    trigger    VARCHAR   NOT NULL, -- кто создал задачу
-    time       TIMESTAMP NOT NULL,  -- время создания задачи
-    PRIMARY KEY (ID)
+    owner    VARCHAR   NOT NULL, -- кто создал задачу
+    time       TIMESTAMP NOT NULL DEFAULT now(),  -- время создания задачи
+    PRIMARY KEY (id)
 )

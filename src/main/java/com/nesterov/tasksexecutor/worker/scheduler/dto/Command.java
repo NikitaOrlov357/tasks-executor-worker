@@ -11,6 +11,6 @@ public class Command {
     String type;
     long regularity;
     long start;
-    String trigger;
+    String owner;
     Date time;
 }

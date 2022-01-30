@@ -13,6 +13,8 @@ public class SchedulerService extends Thread {
 
     public SchedulerService (RegularTasksDao regularTasksDao){
         this.regularTasksDao = regularTasksDao;
+
+        this.setName("schedulerServ");
     }
 
     @Override

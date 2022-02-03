@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "db.url",
+      "type": "java.lang.String",
+      "description": "ссылка на БД"
+    },
+    {
+      "name": "db.user",
+      "type": "java.lang.String",
+      "description": "логин БД"
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "пароль БД"
+    }
+  ] }

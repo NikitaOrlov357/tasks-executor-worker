@@ -1,1 +1,1 @@
-docker run -d -p 8091:5432 schedulerdb:latest --name schedulerdb
+docker run --name schedulerdb -d -p 8091:5432 schedulerdb:latest

@@ -1,0 +1,1 @@
+docker run -d -p 8091:5432 schedulerdb:latest

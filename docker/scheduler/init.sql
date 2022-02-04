@@ -1,5 +1,3 @@
-CREATE DATABASE scheduler;
-
 CREATE TABLE commands(
     id         serial    NOT NULL, -- уникальный номер записи
     command    VARCHAR   NOT NULL, -- команда для выполнения

@@ -1,0 +1,5 @@
+FROM postgres:latest
+ENV POSTGRES_DB scheduler
+ENV POSTGRES_USER scheduler
+ENV POSTGRES_PASSWORD scheduler
+COPY init.sql docker-entrypoint-initdb.d/init.sql

@@ -7,4 +7,7 @@ CREATE TABLE commands(
     owner    VARCHAR   NOT NULL, -- кто создал задачу
     time       TIMESTAMP NOT NULL DEFAULT now(),  -- время создания задачи
     PRIMARY KEY (id)
-)
+);
+
+INSERT INTO commands (command, type, regularity, start, owner)
+VALUES ('ping yandex.ru', 'cmd', 60, 1643300220, 'Ne_kit');

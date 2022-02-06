@@ -1,0 +1,41 @@
+package com.company;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+public class Main {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        long start = 1643300220L;
+        long r1 = 60L;
+        long r2 = 120L;
+        long r3 = 180L;
+
+        while (true){
+            System.out.println(new Date());
+            long t = currentTimeSeconds() ;
+            System.out.printf("current = %d start = %d diff = %d \n", t, start, getCurrentMinute2(t - start) );
+            if(getCurrentMinute2(t - start) %r1 == 0){
+                System.out.println("выполняется задача r1");
+            }
+            if(getCurrentMinute2(t - start) %r2 == 0){
+                System.out.println("выполняется задача r2");
+            }
+            if(getCurrentMinute2(t - start) %r3 == 0){
+                System.out.println("выполняется задача r3");
+            }
+            Thread.sleep(60000);
+        }
+    }
+
+    public static long getCurrentMinute2 (long time){
+        return  time/ 60L * 60;
+    }
+
+    public static long currentTimeSeconds (){
+        return System.currentTimeMillis() / 1000L;
+    }
+
+}

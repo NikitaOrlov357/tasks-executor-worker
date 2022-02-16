@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 @Slf4j
@@ -22,26 +23,23 @@ public class CmdRunner implements Runner {
         }
     }
 
-    private String getErrorString(Process process) throws IOException {
-        StringBuilder errorOutput = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))){
+    private String getStringFromStream(InputStream stream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream))){
             String line = "";
             while ((line = bufferedReader.readLine()) != null){
-                errorOutput.append(line).append("\n");
+                output.append(line).append("\n");
             }
         }
-        return errorOutput.toString();
+        return output.toString();
+    }
+
+    private String getErrorString(Process process) throws IOException {
+       return getStringFromStream(process.getErrorStream());
     }
 
     private String getInputString(Process process) throws IOException {
-        StringBuilder inputOutput = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))){
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null){
-                inputOutput.append(line).append("\n");
-            }
-        }
-        return inputOutput.toString();
+        return getStringFromStream(process.getInputStream());
     }
 
 }

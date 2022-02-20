@@ -20,7 +20,7 @@ public class CmdRunner implements Runner {
             String errorString = getErrorString(process);
             String inputString = getInputString(process);
 
-            if (errorString.length() > 0 && inputString.length() > 0){
+            if (!errorString.isBlank() && !inputString.isBlank()){
                 throw new RuntimeException();
             }
 

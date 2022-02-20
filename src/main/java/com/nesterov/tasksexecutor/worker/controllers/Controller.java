@@ -19,7 +19,7 @@ public class Controller {
 
     @GetMapping(value = "hi")
     public String showAllCommands (Model model){
-        List list = schedulerService.getAllCommands();
+        List list = schedulerService.getAllCommands();//"ошибка" т.к. методы equals не определены четко в таком списке.
         model.addAttribute("commands", list);
         return "show";
     }

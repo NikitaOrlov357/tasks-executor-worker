@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
-    private String url;
-    private String user;
-    private String password;
+    private final String url;
+    private final String user;
+    private final String password;
 
     public Config (@Value("${db.url}") String url,
                    @Value("${db.user}") String user,
@@ -28,7 +28,7 @@ public class Config {
         hc.setUsername(user);
         hc.setPassword(password);
         hc.setJdbcUrl(url);
-        HikariDataSource hds = new HikariDataSource(hc);
+        HikariDataSource hds = new HikariDataSource(hc);//говорит что hds лишний можно и удалить, но я не понял почему
         return hds;
     }
 

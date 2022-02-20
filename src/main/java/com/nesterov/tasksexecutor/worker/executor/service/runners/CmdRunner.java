@@ -1,13 +1,11 @@
 package com.nesterov.tasksexecutor.worker.executor.service.runners;
 
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
+import com.nesterov.tasksexecutor.worker.utils.StreamUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import static com.nesterov.tasksexecutor.worker.utils.StringUtils.isNotBlank;
 
@@ -21,8 +19,6 @@ public class CmdRunner implements Runner {
             Process process = Runtime.getRuntime().exec("cmd /c " + command.getCommand());
             String errorString = getErrorString(process);
             String inputString = getInputString(process);
-
-
 
             if (isNotBlank(errorString) && isNotBlank(inputString)){
                 throw new RuntimeException();
@@ -43,23 +39,11 @@ public class CmdRunner implements Runner {
         }
     }
 
-    private String getStringFromStream(InputStream stream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream))){
-            String line;
-            while ((line = bufferedReader.readLine()) != null){
-                output.append(line).append("\n");
-            }
-        }
-        return output.toString();
-    }
-
     private String getErrorString(Process process) throws IOException {
-       return getStringFromStream(process.getErrorStream());
+       return StreamUtils.getStringFromStream(process.getErrorStream());
     }
 
     private String getInputString(Process process) throws IOException {
-        return getStringFromStream(process.getInputStream());
+        return StreamUtils.getStringFromStream(process.getInputStream());
     }
-
 }

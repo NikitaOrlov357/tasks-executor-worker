@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static com.nesterov.tasksexecutor.worker.utils.StringUtils.isNotBlank;
+
 @Slf4j
 @Service
 public class CmdRunner implements Runner {
@@ -20,13 +22,15 @@ public class CmdRunner implements Runner {
             String errorString = getErrorString(process);
             String inputString = getInputString(process);
 
-            if (!errorString.isBlank() && !inputString.isBlank()){
+
+
+            if (isNotBlank(errorString) && isNotBlank(inputString)){
                 throw new RuntimeException();
             }
 
             log.debug("command = {}", command.getCommand());
 
-            if (errorString.length() > 0){
+            if (isNotBlank(errorString)){
                 log.debug("failure, {}", errorString);
             }
             else {
@@ -42,7 +46,7 @@ public class CmdRunner implements Runner {
     private String getStringFromStream(InputStream stream) throws IOException {
         StringBuilder output = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream))){
-            String line = "";
+            String line;
             while ((line = bufferedReader.readLine()) != null){
                 output.append(line).append("\n");
             }

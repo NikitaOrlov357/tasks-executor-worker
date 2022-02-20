@@ -16,9 +16,25 @@ public class CmdRunner implements Runner {
     @Override
     public void run(Command command) {
         try {
-            Process process = Runtime.getRuntime().exec("");
+            Process process = Runtime.getRuntime().exec("cmd /c " + command.getCommand());
+            String errorString = getErrorString(process);
+            String inputString = getInputString(process);
+
+            if (errorString.length() > 0 && inputString.length() > 0){
+                throw new RuntimeException();
+            }
+
+            log.debug("command = {}", command.getCommand());
+
+            if (errorString.length() > 0){
+                log.debug("failure, {}", errorString);
+            }
+            else {
+                log.debug("success, {}", inputString);
+            }
         }
         catch (IOException exception){
+            // когда ядро не понимает команду
             log.error("process was not finished for command = {}", command);
         }
     }

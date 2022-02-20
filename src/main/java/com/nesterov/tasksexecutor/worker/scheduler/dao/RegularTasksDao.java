@@ -20,7 +20,7 @@ public class RegularTasksDao implements CommandsDao {
         System.out.println(getCurrentTasks());
     }
 
-    public List getCurrentTasks(){
+    public List<Command> getCurrentTasks(){
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);//положить dataSource в аргумент
         long unixTimeInSeconds = System.currentTimeMillis() / 1000L;

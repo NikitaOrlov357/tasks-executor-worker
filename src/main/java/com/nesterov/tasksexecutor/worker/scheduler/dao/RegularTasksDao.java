@@ -4,6 +4,7 @@ import com.nesterov.tasksexecutor.worker.scheduler.dao.interfaces.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +16,8 @@ public class RegularTasksDao implements CommandsDao {
 
     private final HikariDataSource hikariDataSource;
 
-    public RegularTasksDao (HikariDataSource hikariDataSource){
+    public RegularTasksDao (@Qualifier("getHikariDataSource") HikariDataSource hikariDataSource){
         this.hikariDataSource = hikariDataSource;
-        System.out.println(getCurrentTasks());
     }
 
     public List<Command> getCurrentTasks(){
@@ -30,9 +30,9 @@ public class RegularTasksDao implements CommandsDao {
 
         return jdbcTemplate.query(
                 sql,
-                (rs, rowNum)->//посмотреть resultSet
+                (rs, rowNum)->
                     new Command(
-                            rs.getInt("id"),//название столбца из бд//
+                            rs.getInt("id"),
                             rs.getString("command"),
                             rs.getString("type"),
                             rs.getLong("regularity"),
@@ -41,7 +41,5 @@ public class RegularTasksDao implements CommandsDao {
                             rs.getDate("time")
                     )
         );
-
     }
-
 }

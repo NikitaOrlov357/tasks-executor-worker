@@ -22,7 +22,8 @@ public class ExecutorService {
     public void execute(Command command){
         Runner runner = getRunner(command);
         if (runner != null) {
-            runner.run(command);
+            ExecutorThread executorThread = new ExecutorThread(runner, command);
+            executorThread.start();
         }
         else {
             log.error("runner was not found for command = {}", command);

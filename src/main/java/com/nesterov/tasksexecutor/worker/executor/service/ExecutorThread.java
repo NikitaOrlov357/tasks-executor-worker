@@ -4,8 +4,8 @@ import com.nesterov.tasksexecutor.worker.executor.service.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 
 public class ExecutorThread extends Thread{
-    Runner runner;
-    Command command;
+    private final Runner runner;
+    private final Command command;
 
     public ExecutorThread(Runner runner, Command command){
         this.runner = runner;

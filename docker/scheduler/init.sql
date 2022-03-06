@@ -19,6 +19,6 @@ CREATE TABLE log(
     message VARCHAR NOT NULL, -- сообщение
     owner VARCHAR NOT NULL, -- кто создал задачу
     start TIMESTAMP NOT NULL, -- время начала задачи
-    finish TIMESTAMP NOT NULL,  -- время окончания задачи
+    duration BIGINT NOT NULL,  -- время длит-ти задачи (в сек)
     PRIMARY KEY (id)
 );

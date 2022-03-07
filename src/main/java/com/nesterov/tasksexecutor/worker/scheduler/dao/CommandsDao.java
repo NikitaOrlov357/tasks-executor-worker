@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.scheduler.dao.interfaces;
+package com.nesterov.tasksexecutor.worker.scheduler.dao;
 
 import java.util.List;
 

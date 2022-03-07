@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.executor.utils;
+package com.nesterov.tasksexecutor.worker.executor.service;
 
 public interface CommandTypes {
     String CMD = "cmd";

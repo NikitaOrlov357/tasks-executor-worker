@@ -1,9 +1,8 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
 
-import com.nesterov.tasksexecutor.worker.executor.service.runners.CmdRunner;
-import com.nesterov.tasksexecutor.worker.executor.service.runners.Runner;
-import com.nesterov.tasksexecutor.worker.executor.utils.CommandTypes;
+import com.nesterov.tasksexecutor.worker.executor.runners.implementations.CmdRunner;
+import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;

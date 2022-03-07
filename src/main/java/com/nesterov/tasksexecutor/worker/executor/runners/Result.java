@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.executor;
+package com.nesterov.tasksexecutor.worker.executor.runners;
 
 import lombok.Value;
 

@@ -1,7 +1,7 @@
 package com.nesterov.tasksexecutor.worker.scheduler.services;
 
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
-import com.nesterov.tasksexecutor.worker.scheduler.dao.RegularTasksDao;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.implementations.RegularTasksDbDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +10,11 @@ import java.util.List;
 @Service
 public class SchedulerService extends Thread {
 
-    RegularTasksDao regularTasksDao;
+    RegularTasksDbDao regularTasksDbDao;
     ExecutorService executorService;
 
-    public SchedulerService (RegularTasksDao regularTasksDao, ExecutorService executorService){
-        this.regularTasksDao = regularTasksDao;
+    public SchedulerService (RegularTasksDbDao regularTasksDbDao, ExecutorService executorService){
+        this.regularTasksDbDao = regularTasksDbDao;
         this.executorService = executorService;
 
         this.setName("schedulerServ");
@@ -22,7 +22,7 @@ public class SchedulerService extends Thread {
 
     @Override
     public void run() {
-        while(true){ //"ошибка" т.к. не может завершиться без создания исключения
+        while(true){
             try {
                 getAllCommands().forEach(executorService::execute);
                 Thread.sleep(60000);//хз
@@ -34,7 +34,7 @@ public class SchedulerService extends Thread {
 
 
     public List<Command> getAllCommands (){
-        return regularTasksDao.getCurrentTasks();
+        return regularTasksDbDao.getCurrentTasks();
     }
 
 }

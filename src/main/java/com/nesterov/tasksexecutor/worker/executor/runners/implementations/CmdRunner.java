@@ -1,6 +1,7 @@
-package com.nesterov.tasksexecutor.worker.executor.service.runners;
+package com.nesterov.tasksexecutor.worker.executor.runners.implementations;
 
-import com.nesterov.tasksexecutor.worker.executor.Result;
+import com.nesterov.tasksexecutor.worker.executor.runners.Result;
+import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.logger.ResultLogger;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.utils.StreamUtils;

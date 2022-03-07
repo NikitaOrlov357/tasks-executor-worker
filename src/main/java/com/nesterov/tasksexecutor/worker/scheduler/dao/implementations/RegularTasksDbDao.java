@@ -1,6 +1,6 @@
-package com.nesterov.tasksexecutor.worker.scheduler.dao;
+package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
-import com.nesterov.tasksexecutor.worker.scheduler.dao.interfaces.CommandsDao;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +12,17 @@ import java.util.List;
 
 @Slf4j
 @Repository
-public class RegularTasksDao implements CommandsDao {
+public class RegularTasksDbDao implements CommandsDao {
 
     private final DataSource hikariDataSource;
 
-    public RegularTasksDao (DataSource hikariDataSource){
+    public RegularTasksDbDao(DataSource hikariDataSource){
         this.hikariDataSource = hikariDataSource;
     }
 
     public List<Command> getCurrentTasks(){
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);//положить dataSource в аргумент
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
         long unixTimeInSeconds = System.currentTimeMillis() / 1000L;
         log.debug("unixTimeInSeconds = {} ", unixTimeInSeconds);
         String sql = " SELECT * FROM commands WHERE (((" + unixTimeInSeconds + " - start) / 60 * 60) % " + " regularity) " + " = 0 ";//sql запрос

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class ExecutorService {
 
     private final Runner cmdRunner;
-    Timer timer = new Timer();
 
     public ExecutorService(CmdRunner cmdRunner){
         this.cmdRunner = cmdRunner;

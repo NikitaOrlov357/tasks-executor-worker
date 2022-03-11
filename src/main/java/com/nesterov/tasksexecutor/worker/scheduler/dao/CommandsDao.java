@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CommandsDao {
 
-    public List getCurrentTasks();
+    List getCurrentTasks();
 
 
 }

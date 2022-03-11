@@ -40,6 +40,7 @@ public class CmdRunner implements Runner {
             log.error("process was not finished for command = {}", command);
         }
         finally {
+            assert result != null;
             resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

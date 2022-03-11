@@ -1,7 +1,5 @@
 package com.nesterov.tasksexecutor.worker.utils;
 
-import java.util.concurrent.TimeoutException;
-
 public class Timer {
     private long start;
     private long finish;

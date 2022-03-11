@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    SchedulerService schedulerService;
+    private  SchedulerService schedulerService;
 
     @GetMapping(value = "ok")
     public String showAddingPage () {

@@ -16,7 +16,6 @@ public  class Timer {
         return finish - start;
     }
 
-    //Timer для сигнатыры Run
     public interface MethodWithoutParams{
         void doMethod();
     }

@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 public class SchedulerService extends Thread {
 
-    private final RegularTasksDbDao regularTasksDbDao;
-    private final ExecutorService executorService;
+    RegularTasksDbDao regularTasksDbDao;
+    ExecutorService executorService;
 
     public SchedulerService (RegularTasksDbDao regularTasksDbDao, ExecutorService executorService){
         this.regularTasksDbDao = regularTasksDbDao;

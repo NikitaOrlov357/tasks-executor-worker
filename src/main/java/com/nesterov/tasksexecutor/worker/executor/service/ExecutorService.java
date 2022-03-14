@@ -36,7 +36,7 @@ public class ExecutorService {
                 return cmdRunner;
 
             case CommandTypes.BASH:
-                return null; // "ошибка" т.к. нет смысла в case-е из-за null
+                return null;
             default:
                 return null;
         }

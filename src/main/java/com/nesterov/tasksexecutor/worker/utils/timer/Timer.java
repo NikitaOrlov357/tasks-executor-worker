@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.utils;
+package com.nesterov.tasksexecutor.worker.utils.timer;
 
 public class Timer {
     private long start;
@@ -12,9 +12,9 @@ public class Timer {
         finish = System.currentTimeMillis();
     }
 
-    public long getTime() throws TimerRunException {
+    public long getTime() {
         if (finish <= 0) {
-            throw new TimerRunException("Timer value is incorrect");
+            throw new TimerErrorException("Timer value is incorrect");
         }
         return finish - start;
     }
@@ -28,15 +28,19 @@ public class Timer {
         long start = System.currentTimeMillis();
         methodWithoutParams.doMethod();
         long finish = System.currentTimeMillis();
+        long value = 0;
         switch (unit){
             case MILLISECONDS:
-                return (finish - start);
+                value = 1;
+                break;
             case SECONDS:
-                return (finish - start) / 1000;
+                value = 1000;
+                break;
             case MINUTES:
-                return (finish - start) / 60000;
+                value = 60000;
+                break;
         }
 
-        return finish - start;
+        return (finish - start) / value;
     }
 }

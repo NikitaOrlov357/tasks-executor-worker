@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExecutorService {
 
-    Runner cmdRunner;
+    private final Runner cmdRunner;
 
     public ExecutorService(CmdRunner cmdRunner){
         this.cmdRunner = cmdRunner;

@@ -12,10 +12,10 @@ public class Timer {
         finish = System.currentTimeMillis();
     }
 
-    public long getTime() throws ArithmeticException{
-            if (finish < start && finish == 0){
-                throw new ArithmeticException();
-            }
+    public long getTime() throws TimerRunException {
+        if (finish <= 0) {
+            throw new TimerRunException("Timer value is incorrect");
+        }
         return finish - start;
     }
 
@@ -23,10 +23,20 @@ public class Timer {
         void doMethod();
     }
 
-    public static long doAndGetTime(MethodWithoutParams methodWithoutParams) {
+
+    public static long doAndGetTime(MethodWithoutParams methodWithoutParams, TimeUnit unit) {
         long start = System.currentTimeMillis();
         methodWithoutParams.doMethod();
         long finish = System.currentTimeMillis();
+        switch (unit){
+            case MILLISECONDS:
+                return (finish - start);
+            case SECONDS:
+                return (finish - start) / 1000;
+            case MINUTES:
+                return (finish - start) / 60000;
+        }
+
         return finish - start;
     }
 }

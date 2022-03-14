@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    private final SchedulerService schedulerService;
+    SchedulerService schedulerService;
 
     public Controller(SchedulerService schedulerService) {
         this.schedulerService = schedulerService;

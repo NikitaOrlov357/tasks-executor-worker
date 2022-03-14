@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ContextStartedListener implements ApplicationListener<ContextStartedEvent> {
-    private final SchedulerService schedulerService;
+    SchedulerService schedulerService;
 
     public ContextStartedListener(SchedulerService schedulerService){
         this.schedulerService = schedulerService;

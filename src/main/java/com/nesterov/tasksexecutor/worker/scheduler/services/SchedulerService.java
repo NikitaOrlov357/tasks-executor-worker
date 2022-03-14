@@ -25,7 +25,7 @@ public class SchedulerService extends Thread {
         while(true){
             try {
                 getAllCommands().forEach(executorService::execute);
-                Thread.sleep(60000);//хз
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

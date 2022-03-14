@@ -4,7 +4,6 @@ package com.nesterov.tasksexecutor.worker.executor.service;
 import com.nesterov.tasksexecutor.worker.executor.runners.implementations.CmdRunner;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
-import com.nesterov.tasksexecutor.worker.utils.Timer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -15,24 +14,23 @@ public class ExecutorService {
 
     Runner cmdRunner;
 
-    public ExecutorService(CmdRunner cmdRunner){
+    public ExecutorService(CmdRunner cmdRunner) {
         this.cmdRunner = cmdRunner;
     }
 
-    public void execute(Command command){
+    public void execute(Command command) {
         Runner runner = getRunner(command);
         if (runner != null) {
             ExecutorThread executorThread = new ExecutorThread(runner, command);
-            long timeOfMethod = Timer.doAndGetTime(executorThread::start);
-        }
-        else {
+            executorThread.start();
+        } else {
             log.error("runner was not found for command = {}", command);
         }
     }
 
     @Nullable
-    private Runner getRunner (Command command){
-        switch (command.getType()){
+    private Runner getRunner(Command command) {
+        switch (command.getType()) {
             case CommandTypes.CMD:
                 return cmdRunner;
 

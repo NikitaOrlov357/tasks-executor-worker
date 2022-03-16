@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 public class SchedulerService extends Thread {
 
-    RegularTasksDbDao regularTasksDbDao;
-    ExecutorService executorService;
+    private final RegularTasksDbDao regularTasksDbDao;
+    private final ExecutorService executorService;
 
     public SchedulerService (RegularTasksDbDao regularTasksDbDao, ExecutorService executorService){
         this.regularTasksDbDao = regularTasksDbDao;
@@ -25,7 +25,7 @@ public class SchedulerService extends Thread {
         while(true){
             try {
                 getAllCommands().forEach(executorService::execute);
-                Thread.sleep(60000);//хз
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

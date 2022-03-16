@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExecutorService {
 
-    Runner cmdRunner;
+    private final Runner cmdRunner;
 
     public ExecutorService(CmdRunner cmdRunner) {
         this.cmdRunner = cmdRunner;
@@ -35,7 +35,7 @@ public class ExecutorService {
                 return cmdRunner;
 
             case CommandTypes.BASH:
-                return null; // "ошибка" т.к. нет смысла в case-е из-за null
+                return null;
             default:
                 return null;
         }

@@ -3,7 +3,6 @@ package com.nesterov.tasksexecutor.worker.logger;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.Date;

@@ -14,24 +14,23 @@ public class ExecutorService {
 
     private final Runner cmdRunner;
 
-    public ExecutorService(CmdRunner cmdRunner){
+    public ExecutorService(CmdRunner cmdRunner) {
         this.cmdRunner = cmdRunner;
     }
 
-    public void execute(Command command){
+    public void execute(Command command) {
         Runner runner = getRunner(command);
         if (runner != null) {
             ExecutorThread executorThread = new ExecutorThread(runner, command);
             executorThread.start();
-        }
-        else {
+        } else {
             log.error("runner was not found for command = {}", command);
         }
     }
 
     @Nullable
-    private Runner getRunner (Command command){
-        switch (command.getType()){
+    private Runner getRunner(Command command) {
+        switch (command.getType()) {
             case CommandTypes.CMD:
                 return cmdRunner;
 

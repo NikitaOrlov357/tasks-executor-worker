@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.controllers;
 
+import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.scheduler.services.SchedulerService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +10,7 @@ import java.util.List;
 
 @RestController
 public class Controller {
-
-    SchedulerService schedulerService;
+    private final SchedulerService schedulerService;
 
     public Controller(SchedulerService schedulerService) {
         this.schedulerService = schedulerService;
@@ -23,7 +23,7 @@ public class Controller {
 
     @GetMapping(value = "hi")
     public String showAllCommands (Model model){
-        List list = schedulerService.getAllCommands();//"ошибка" т.к. методы equals не определены четко в таком списке.
+        List<Command> list = schedulerService.getAllCommands();//"ошибка" т.к. методы equals не определены четко в таком списке.
         model.addAttribute("commands", list);
         return "show";
     }

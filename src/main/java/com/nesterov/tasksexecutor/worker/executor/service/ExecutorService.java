@@ -6,6 +6,7 @@ import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
+import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ public class ExecutorService {
 
     private final Runner cmdRunner;
 
-    public ExecutorService(CmdRunner cmdRunner){
+    public ExecutorService(CmdRunner cmdRunner) {
         this.cmdRunner = cmdRunner;
     }
 
-    public void execute(Command command){
+    public void execute(Command command) {
         Runner runner = getRunner(command);
         if (runner != null) {
             ExecutorThread executorThread = new ExecutorThread(runner, command);
@@ -32,13 +33,13 @@ public class ExecutorService {
     }
 
     @Nullable
-    private Runner getRunner (Command command){
-        switch (command.getType()){
+    private Runner getRunner(Command command) {
+        switch (command.getType()) {
             case CommandTypes.CMD:
                 return cmdRunner;
 
             case CommandTypes.BASH:
-                return null; // "ошибка" т.к. нет смысла в case-е из-за null
+                return null;
             default:
                 return null;
         }

@@ -14,7 +14,7 @@ public class Timer {
 
     public long getTime() {
         if (finish <= 0) {
-            throw new TimerErrorException("Timer value is incorrect");
+            throw new TimerErrorException("getTime started earlier than stop");
         }
         return finish - start;
     }
@@ -28,11 +28,12 @@ public class Timer {
         long start = System.currentTimeMillis();
         methodWithoutParams.doMethod();
         long finish = System.currentTimeMillis();
-        long value = 0;
-        switch (unit){
-            case MILLISECONDS:
-                value = 1;
-                break;
+        return (finish - start) / generateValue(unit);
+    }
+
+    public static long generateValue(TimeUnit unit) {
+        long value = 1;
+        switch (unit) {
             case SECONDS:
                 value = 1000;
                 break;
@@ -40,7 +41,6 @@ public class Timer {
                 value = 60000;
                 break;
         }
-
-        return (finish - start) / value;
+        return value;
     }
 }

@@ -13,7 +13,7 @@ public class Timer {
     }
 
     public long getTime() {
-        if (finish <= 0) {
+        if (finish == 0) {
             throw new TimerErrorException("getTime started earlier than stop");
         }
         return finish - start;

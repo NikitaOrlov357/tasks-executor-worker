@@ -18,6 +18,7 @@ public class SchedulerService extends Thread {
     public SchedulerService (@SuppressWarnings("all") CommandsDao commandsDao, ExecutorService executorService){//подавляем предупреждение т.к. Spring видит два бина с одинаковой сигнатурой, но в рантайме будет только один dao
         this.commandsDao = commandsDao;
         this.executorService = executorService;
+
         this.setName("schedulerServ");
     }
 

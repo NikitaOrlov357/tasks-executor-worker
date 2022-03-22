@@ -16,7 +16,7 @@ public class SchedulerService extends Thread {
 
     private boolean stopped = false;
 
-    public SchedulerService (@SuppressWarnings("all") CommandsDao commandsDao, ExecutorService executorService){//подавляем предупреждение т.к. Spring видит два бина с одинаковой сигнатурой, но в рантайме будет только один dao
+    public SchedulerService(@SuppressWarnings("all") CommandsDao commandsDao, ExecutorService executorService) {//подавляем предупреждение т.к. Spring видит два бина с одинаковой сигнатурой, но в рантайме будет только один dao
         this.commandsDao = commandsDao;
         this.executorService = executorService;
 
@@ -25,7 +25,7 @@ public class SchedulerService extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
 
             if (!stopped) {
                 getAllCommands().forEach(executorService::execute);
@@ -39,12 +39,16 @@ public class SchedulerService extends Thread {
         }
     }
 
-    public void stopScheduler(){
+    public void stopScheduler() {
         stopped = true;
     }
 
+    public void reStartScheduler() {
+        stopped = false;
+    }
 
-    public List<Command> getAllCommands (){
+
+    public List<Command> getAllCommands() {
         return commandsDao.getCurrentTasks();
     }
 

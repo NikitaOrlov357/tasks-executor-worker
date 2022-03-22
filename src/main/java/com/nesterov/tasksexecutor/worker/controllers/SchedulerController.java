@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("scheduler")
 public class SchedulerController {
-@PostMapping("/stop")
-    public String stopScheduler(){
-    return "stop";
-}
 
+    @PostMapping("/stop")
+    public String stopScheduler(){
+        return "stop";
+    }
+
+    @PostMapping("/start")
+    public String startScheduler(){
+        return "started";
+    }
 }

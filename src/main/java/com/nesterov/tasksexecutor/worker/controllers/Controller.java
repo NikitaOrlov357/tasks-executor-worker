@@ -27,4 +27,10 @@ public class Controller {
         model.addAttribute("commands", list);
         return "show";
     }
+    @GetMapping("stop")
+    public void stopCmdRunner(){
+
+    }
+
+
 }

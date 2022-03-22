@@ -28,11 +28,11 @@ public class ResultLogger {
         if (resultLoggerDummyModeEnable) {
             log.info("dummyMode for result logger command={}, result={}, message={}, owner={}, start={}, duration={}", command, result, message, owner, start, duration);
         } else {
-            logDefault(command, result, message, owner, start, duration);
+            logByLogger(command, result, message, owner, start, duration);
         }
     }
 
-    public void logDefault(String command, boolean result, String message, String owner, Date start, long duration) {
+    private void logByLogger(String command, boolean result, String message, String owner, Date start, long duration) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
         String sql = "INSERT INTO log (command, result, message, owner, start, duration) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, command, result, message, owner, start, duration);

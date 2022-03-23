@@ -20,9 +20,10 @@ public class ResultLogger {
     private final DataSource hikariDataSource;
     private final ExternalConfigs.ResultLoggerConfig resultLoggerConfig;
 
-    public ResultLogger(ExternalConfigs.ResultLoggerConfig resultLoggerConfig, DataSource hikariDataSource) {
+    public ResultLogger(ExternalConfigs.ResultLoggerConfig resultLoggerConfig, DataSource hikariDataSource,ExternalConfigs.ExecutorConfig executorConfig) {
         this.hikariDataSource = hikariDataSource;
         this.resultLoggerConfig = resultLoggerConfig;
+        executorConfig.getExecutorMaxExecutionTime();
     }
 
     public void log(String command, boolean result, String message, String owner, Date start, long duration) {

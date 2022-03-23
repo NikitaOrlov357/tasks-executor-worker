@@ -12,11 +12,23 @@ public class ExternalConfigs {
     public ResultLoggerConfig getResultLoggerConfig(){
         return new ResultLoggerConfig();
     }
+    @Bean
+    public ExecutorConfig getExecutorConfig(){
+        return new ExecutorConfig();
+    }
 
     @Getter
     public class ResultLoggerConfig{
-        @Value("${result.logger.dummymode.enable}")
+        @Value("${result.logger.dummy.mode.enable}")
         boolean resultLoggerDummyModeEnable;
 
     }
+
+    @Getter
+    public class ExecutorConfig{
+        @Value("${executor.max.execution.time}")
+        long executorMaxExecutionTime;
+
+    }
+
 }

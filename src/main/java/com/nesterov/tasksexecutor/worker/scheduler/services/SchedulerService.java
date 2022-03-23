@@ -2,7 +2,6 @@ package com.nesterov.tasksexecutor.worker.scheduler.services;
 
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
-import com.nesterov.tasksexecutor.worker.scheduler.dao.implementations.RegularTasksDbDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +42,7 @@ public class SchedulerService extends Thread {
         stopped = true;
     }
 
-    public void reStartScheduler() {
+    public void startScheduler() {
         stopped = false;
     }
 

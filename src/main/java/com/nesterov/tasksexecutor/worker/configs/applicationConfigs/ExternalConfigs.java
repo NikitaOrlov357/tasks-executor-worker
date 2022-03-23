@@ -1,6 +1,7 @@
 package com.nesterov.tasksexecutor.worker.configs.applicationConfigs;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,8 @@ public class ExternalConfigs {
 
     @Getter
     public class ResultLoggerConfig{
-        private String param;
+        @Value("${result.logger.dummymode.enable}")
+        boolean resultLoggerDummyModeEnable;
+
     }
 }

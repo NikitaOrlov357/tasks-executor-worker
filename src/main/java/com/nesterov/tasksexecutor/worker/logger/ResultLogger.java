@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.logger;
 
+import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorThread;
 import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
@@ -17,15 +18,15 @@ import java.util.Date;
 public class ResultLogger {
 
     private final DataSource hikariDataSource;
-    private final boolean resultLoggerDummyModeEnable;
+    private final ExternalConfigs.ResultLoggerConfig resultLoggerConfig;
 
-    public ResultLogger(@Value("${result.logger.dummymode.enable}") boolean resultLoggerDummyModeEnable, DataSource hikariDataSource) {
+    public ResultLogger(ExternalConfigs.ResultLoggerConfig resultLoggerConfig, DataSource hikariDataSource) {
         this.hikariDataSource = hikariDataSource;
-        this.resultLoggerDummyModeEnable = resultLoggerDummyModeEnable;
+        this.resultLoggerConfig = resultLoggerConfig;
     }
 
     public void log(String command, boolean result, String message, String owner, Date start, long duration) {
-        if (resultLoggerDummyModeEnable) {
+        if (resultLoggerConfig.isResultLoggerDummyModeEnable()) {
             log.info("dummyMode for result logger command={}, result={}, message={}, owner={}, start={}, duration={}", command, result, message, owner, start, duration);
         } else {
             logByLogger(command, result, message, owner, start, duration);

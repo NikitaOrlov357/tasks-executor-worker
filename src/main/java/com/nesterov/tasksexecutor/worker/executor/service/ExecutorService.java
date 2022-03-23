@@ -11,15 +11,14 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ExecutorService {
+    private final RunnerSwitchService runnerSwitchService;
 
-    private final Runner cmdRunner;
-
-    public ExecutorService(CmdRunner cmdRunner){
-        this.cmdRunner = cmdRunner;
+    public ExecutorService(RunnerSwitchService runnerSwitchService){
+        this.runnerSwitchService = runnerSwitchService;
     }
 
     public void execute(Command command){
-        Runner runner = getRunner(command);
+        Runner runner = runnerSwitchService.getRunner(command);
         if (runner != null) {
             ExecutorThread executorThread = new ExecutorThread(runner, command);
             executorThread.start();
@@ -29,17 +28,5 @@ public class ExecutorService {
         }
     }
 
-    @Nullable
-    private Runner getRunner (Command command){
-        switch (command.getType()){
-            case CommandTypes.CMD:
-                return cmdRunner;
-
-            case CommandTypes.BASH:
-                return null; // "ошибка" т.к. нет смысла в case-е из-за null
-            default:
-                return null;
-        }
-    }
 
 }

@@ -26,9 +26,9 @@ public class RegularTasksDbDao implements CommandsDao {
     public List<Command> getCurrentTasks(){
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
-        long unixTimeInSeconds = System.currentTimeMillis() / 1000L;
-        log.debug("unixTimeInSeconds = {} ", unixTimeInSeconds);
-        String sql = " SELECT * FROM commands WHERE (((" + unixTimeInSeconds + " - start) / 60 * 60) % " + " regularity) " + " = 0 ";
+        long unixTimeInMilliseconds = System.currentTimeMillis();
+        log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
+        String sql = " SELECT * FROM commands WHERE (((" + unixTimeInMilliseconds + " - start) / 60000 * 60000) % " + " regularity) " + " = 0 ";
         log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(

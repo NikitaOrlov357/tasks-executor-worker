@@ -25,7 +25,6 @@ public class SchedulerService extends Thread {
     @Override
     public void run() {
         while (true) {
-
             if (!stopped) {
                 getAllCommands().forEach(executorService::execute);
             }

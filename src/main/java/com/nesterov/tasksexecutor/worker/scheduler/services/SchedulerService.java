@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.scheduler.services;
 
+import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
@@ -12,12 +13,13 @@ public class SchedulerService extends Thread {
 
     private final CommandsDao commandsDao;
     private final ExecutorService executorService;
-
+    private final ExternalConfigs.SchedulerConfig schedulerConfig;
     private boolean stopped = false;
 
-    public SchedulerService(@SuppressWarnings("all") CommandsDao commandsDao, ExecutorService executorService) {//подавляем предупреждение т.к. Spring видит два бина с одинаковой сигнатурой, но в рантайме будет только один dao
+    public SchedulerService(@SuppressWarnings("all") CommandsDao commandsDao, ExecutorService executorService, ExternalConfigs.SchedulerConfig schedulerConfig) {//подавляем предупреждение т.к. Spring видит два бина с одинаковой сигнатурой, но в рантайме будет только один dao
         this.commandsDao = commandsDao;
         this.executorService = executorService;
+        this.schedulerConfig = schedulerConfig;
 
         this.setName("schedulerServ");
     }
@@ -30,7 +32,7 @@ public class SchedulerService extends Thread {
             }
 
             try {
-                Thread.sleep(60000);
+                Thread.sleep(schedulerConfig.getSchedulerRegularity());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

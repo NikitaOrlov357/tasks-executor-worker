@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class ExternalConfigs {
 
@@ -15,6 +16,11 @@ public class ExternalConfigs {
     @Bean
     public ExecutorConfig getExecutorConfig(){
         return new ExecutorConfig();
+    }
+
+    @Bean
+    public SchedulerConfig getSchedulerConfig(){
+        return new SchedulerConfig();
     }
 
     @Getter
@@ -29,6 +35,12 @@ public class ExternalConfigs {
         @Value("${executor.max.execution.time}")
         long executorMaxExecutionTime;
 
+    }
+
+    @Getter
+    public class SchedulerConfig{
+        @Value("${scheduler.regularity}")
+        long schedulerRegularity;
     }
 
 }

@@ -5,6 +5,7 @@ import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
 import com.nesterov.tasksexecutor.worker.executor.service.ExecutorThread;
 import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,16 +16,11 @@ import java.util.Date;
 
 @Repository
 @Slf4j
+@RequiredArgsConstructor
 public class ResultLogger {
 
     private final DataSource hikariDataSource;
     private final ExternalConfigs.ResultLoggerConfig resultLoggerConfig;
-
-    public ResultLogger(ExternalConfigs.ResultLoggerConfig resultLoggerConfig, DataSource hikariDataSource,ExternalConfigs.ExecutorConfig executorConfig) {
-        this.hikariDataSource = hikariDataSource;
-        this.resultLoggerConfig = resultLoggerConfig;
-        executorConfig.getExecutorMaxExecutionTime();
-    }
 
     public void log(String command, boolean result, String message, String owner, Date start, long duration) {
         if (resultLoggerConfig.isResultLoggerDummyModeEnable()) {

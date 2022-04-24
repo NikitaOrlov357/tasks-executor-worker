@@ -1,8 +1,10 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
+import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,22 +15,21 @@ import java.util.List;
 
 @Slf4j
 @Repository
+@RequiredArgsConstructor
 @ConditionalOnProperty(value = "database.dummymode.enable", matchIfMissing = true, havingValue = "false")
 public class RegularTasksDbDao implements CommandsDao {
 
     private final DataSource hikariDataSource;
-
-    public RegularTasksDbDao(DataSource hikariDataSource){
-        this.hikariDataSource = hikariDataSource;
-    }
+    private final ExternalConfigs.SchedulerConfig schedulerConfig;
 
     @Override
     public List<Command> getCurrentTasks(){
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
-        long unixTimeInSeconds = System.currentTimeMillis() / 1000L;
-        log.debug("unixTimeInSeconds = {} ", unixTimeInSeconds);
-        String sql = " SELECT * FROM commands WHERE (((" + unixTimeInSeconds + " - start) / 60 * 60) % " + " regularity) " + " = 0 ";
+        long unixTimeInMilliseconds = System.currentTimeMillis();
+        log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
+        long regularity = schedulerConfig.getSchedulerRegularity();
+        String sql = " SELECT * FROM commands WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
         log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(

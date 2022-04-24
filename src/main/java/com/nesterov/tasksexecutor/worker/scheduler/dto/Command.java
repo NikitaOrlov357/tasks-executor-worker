@@ -21,7 +21,7 @@ public class Command {
                 ", command='" + command + '\'' +
                 ", type='" + type + '\'' +
                 ", regularity=" + regularity +
-                ", start=" + start + "(" + new Date(start * 1000) + ")" +
+                ", start=" + start + "(" + new Date(start) + ")" +
                 ", owner='" + owner + '\'' +
                 ", time=" + time +
                 '}';

@@ -44,6 +44,7 @@ public class RegularTasksDbDao implements CommandsDao {
                             rs.getLong("start"),
                             rs.getString("owner"),
                             rs.getDate("time")
+
                     )
         );
     }

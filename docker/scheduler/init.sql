@@ -5,15 +5,15 @@ DROP TABLE IF EXISTS owners;
 
 CREATE TABLE commands_type
 (
-    id SERIAL NOT NULL,
+    id SERIAL NOT NULL,--уникальный номер записи
     type VARCHAR NOT NULL, -- тип команды,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE owners
 (
-    id SERIAL NOT NULL,
-    name VARCHAR NOT NULL,
+    id SERIAL NOT NULL,--уникальный номер записи
+    name VARCHAR NOT NULL, -- имя команды
     PRIMARY KEY (id)
 
 );

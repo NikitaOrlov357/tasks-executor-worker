@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.executor.runners.implementations;
 
+import com.nesterov.tasksexecutor.worker.executor.runners.Result;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class BashRunner implements Runner {
 
     @Override
-    public void run(Command command) {
-
+    public Result run(Command command) {return null;
     }
 }

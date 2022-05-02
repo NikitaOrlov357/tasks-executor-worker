@@ -20,13 +20,11 @@ public class ExecutorService {
     public void execute(Command command){
         Runner runner = runnerSwitchService.getRunner(command);
         if (runner != null) {
-            ExecutorThread executorThread = new ExecutorThread(runner, command);
-            long timeOfMethod = Timer.doAndGetTime(executorThread::start, TimeUnit.MILLISECONDS);
+            new ExecutorThread(command, runner).start();
+           // long timeOfMethod = Timer.doAndGetTime(executorFutureTask::start, TimeUnit.MILLISECONDS);
         }
         else {
             log.error("runner was not found for command = {}", command);
         }
     }
-
-
 }

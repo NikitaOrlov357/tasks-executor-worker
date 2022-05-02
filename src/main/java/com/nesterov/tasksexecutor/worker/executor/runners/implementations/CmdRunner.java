@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.Callable;
 
 import static com.nesterov.tasksexecutor.worker.utils.StringUtils.isNotBlank;
 
@@ -23,27 +24,18 @@ public class CmdRunner implements Runner {
     }
 
     @Override
-    public void run(Command command) {
-        Result result = null;
-        Date date = null;
+    public Result run(Command command) {
+        Result result;
 
         try {
-            date = new Date();
             Process process = Runtime.getRuntime().exec("cmd /c " + command.getCommand());
             result = getResult(process);
-
-            log.debug("command = {}", command.getCommand());
-
-            log.debug("result = {} message = {}", result.isSuccess(), result.getMessage());
         }
         catch (IOException exception){
-            log.error("process was not finished for command = {}", command);
+            result = new Result(false,"Process wasn't finish for Command " + command);
         }
-        finally {
-            if (result != null) {
-                resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
-            }
-        }
+
+        return result;
     }
 
     private String getErrorString(Process process) throws IOException {

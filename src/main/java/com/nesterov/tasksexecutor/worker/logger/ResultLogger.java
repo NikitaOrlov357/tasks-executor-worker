@@ -1,13 +1,8 @@
 package com.nesterov.tasksexecutor.worker.logger;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
-import com.nesterov.tasksexecutor.worker.executor.service.ExecutorThread;
-import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
-import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

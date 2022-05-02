@@ -17,7 +17,6 @@ public class ExternalConfigs {
     public ExecutorConfig getExecutorConfig(){
         return new ExecutorConfig();
     }
-
     @Bean
     public SchedulerConfig getSchedulerConfig(){
         return new SchedulerConfig();

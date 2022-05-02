@@ -25,11 +25,9 @@ public class CmdRunner implements Runner {
 
     @Override
     public Result run(Command command) {
-        Result result = null;
-        Date date = null;
+        Result result;
 
         try {
-            date = new Date();
             Process process = Runtime.getRuntime().exec("cmd /c " + command.getCommand());
             result = getResult(process);
         }

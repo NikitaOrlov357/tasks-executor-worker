@@ -29,6 +29,7 @@ public class ExecutorThread extends Thread {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         if (result != null) {
             log.info("command = {}, success = {} ", command, result.isSuccess());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);

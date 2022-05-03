@@ -20,9 +20,11 @@ public class ExecutorThread extends Thread {
     @Override
     public void run() {
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
-        new Thread(executorFutureTask).start();
-
+        Thread thread = new Thread(executorFutureTask);
+        ThreadLimiter threadLimiter = new ThreadLimiter(thread);
         Result result = null;
+        thread.start();
+        threadLimiter.start();
 
         try {
             result = executorFutureTask.get();

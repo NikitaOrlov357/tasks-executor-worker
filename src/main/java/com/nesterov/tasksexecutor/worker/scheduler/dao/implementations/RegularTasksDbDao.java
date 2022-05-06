@@ -14,9 +14,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Slf4j
-@Repository
 @RequiredArgsConstructor
-@ConditionalOnProperty(value = "database.dummymode.enable", matchIfMissing = true, havingValue = "false")
 public class RegularTasksDbDao implements CommandsDao {
 
     private final DataSource hikariDataSource;

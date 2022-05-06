@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Repository
-@ConditionalOnProperty(value = "database.dummymode.enable", matchIfMissing = true, havingValue = "true")
 public class RegularTasksDummyDao implements CommandsDao {
     List<Command> list = new ArrayList<>();
 

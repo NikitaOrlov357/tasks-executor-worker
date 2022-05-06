@@ -20,14 +20,16 @@ public class ExecutorThread extends Thread {
     @Override
     public void run() {
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
-        new Thread(executorFutureTask).start();
-
+        Thread thread = new Thread(executorFutureTask);
+        ThreadLimiter threadLimiter = new ThreadLimiter(thread);
         Result result = null;
+        thread.start();
+        threadLimiter.start();
 
         try {
             result = executorFutureTask.get();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+           result = new Result(false,"the execution time was exceeded");
         }
         if (result != null) {
             log.info("command = {}, success = {} ", command, result.isSuccess());

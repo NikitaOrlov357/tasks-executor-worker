@@ -32,7 +32,8 @@ public class ExecutorThread extends Thread {
            result = new Result(false,"the execution time was exceeded");
         }
         if (result != null) {
-            log.info("command = {}, success = {}, message = {}", command, result.isSuccess(), result.getMessage());
+            log.info("command = {}, success = {} ", command, result.isSuccess());
+            log.info("Message = {}", result.getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

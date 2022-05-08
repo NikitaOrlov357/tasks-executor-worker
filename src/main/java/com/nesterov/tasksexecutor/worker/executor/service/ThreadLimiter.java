@@ -1,18 +1,18 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
-import lombok.SneakyThrows;
+import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
+import lombok.AllArgsConstructor;
 
+
+@AllArgsConstructor
 public class ThreadLimiter extends Thread {
     Thread thread;
-
-    public ThreadLimiter (Thread thread){
-        this.thread = thread;
-    }
+    ExternalConfigs.ExecutorConfig executorConfig;
 
     @Override
     public void run (){
         try {
-            sleep(500);
+            sleep(executorConfig.getExecutorMaxExecutionTime());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -14,9 +14,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Slf4j
-@Repository
 @RequiredArgsConstructor
-@ConditionalOnProperty(value = "database.dummymode.enable", matchIfMissing = true, havingValue = "false")
 public class RegularTasksDbDao implements CommandsDao {
 
     private final DataSource hikariDataSource;
@@ -29,7 +27,7 @@ public class RegularTasksDbDao implements CommandsDao {
         long unixTimeInMilliseconds = System.currentTimeMillis();
         log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
         long regularity = schedulerConfig.getSchedulerRegularity();
-        String sql = " SELECT commands.id, command, type, regularity, start, name, time FROM commands INNER JOIN commands_type on commands.type_id = commands_type.id INNER JOIN owners on owners.id = commands.id WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
+        String sql = " SELECT * FROM commands WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
         log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(
@@ -41,7 +39,7 @@ public class RegularTasksDbDao implements CommandsDao {
                             rs.getString("type"),
                             rs.getLong("regularity"),
                             rs.getLong("start"),
-                            rs.getString("name"),
+                            rs.getString("owner"),
                             rs.getDate("time")
                     )
         );

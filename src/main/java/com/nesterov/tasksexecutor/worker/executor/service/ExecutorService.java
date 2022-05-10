@@ -20,7 +20,6 @@ public class ExecutorService {
         Runner runner = runnerSwitchService.getRunner(command);
         if (runner != null) {
             new ExecutorThread(command, runner).start();
-            long timeOfMethod = Timer.doAndGetTime(new ExecutorThread(command,runner)::start, TimeUnit.MILLISECONDS);
         }
         else {
             log.error("runner was not found for command = {}", command);

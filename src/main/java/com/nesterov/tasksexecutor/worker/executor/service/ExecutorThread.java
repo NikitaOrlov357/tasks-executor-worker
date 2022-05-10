@@ -3,6 +3,8 @@ package com.nesterov.tasksexecutor.worker.executor.service;
 import com.nesterov.tasksexecutor.worker.executor.runners.Result;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
+import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
+import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutionException;
@@ -26,6 +28,7 @@ public class ExecutorThread extends Thread {
 
         try {
             result = executorFutureTask.get();
+            long timeOfMethod = Timer.doAndGetTime(new ExecutorThread(command,runner)::start, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

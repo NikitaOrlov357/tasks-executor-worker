@@ -1,6 +1,6 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
-public enum CommandTypes {
+public enum CommandType {
     CMD,
     BASH
 }

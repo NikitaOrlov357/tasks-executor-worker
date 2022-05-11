@@ -1,15 +1,13 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.service.CommandTypes;
+import com.nesterov.tasksexecutor.worker.executor.service.CommandType;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -38,7 +36,7 @@ public class RegularTasksDbDao implements CommandsDao {
                     new Command(
                             rs.getInt("id"),
                             rs.getString("command"),
-                            CommandTypes.valueOf(rs.getString("type").toUpperCase(Locale.ROOT)),
+                            CommandType.valueOf(rs.getString("type").toUpperCase(Locale.ROOT)),
                             rs.getLong("regularity"),
                             rs.getLong("start"),
                             rs.getString("owner"),

@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
+import com.nesterov.tasksexecutor.worker.executor.service.CommandTypes;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,7 +17,7 @@ public class RegularTasksDummyDao implements CommandsDao {
         list.add(new Command(
                 11,
                 "dir",
-                "cmd",
+                CommandTypes.CMD,
                 60,
                 1231233444,
                 "odin",
@@ -25,7 +26,7 @@ public class RegularTasksDummyDao implements CommandsDao {
         list.add(new Command(
                 21,
                 "ping vk.ru",
-                "cmd",
+                CommandTypes.CMD,
                 120,
                 1231233444,
                 "dava",
@@ -34,7 +35,7 @@ public class RegularTasksDummyDao implements CommandsDao {
         list.add(new Command(
                 23,
                 "ping yandex.ru",
-                "cmd",
+                CommandTypes.CMD,
                 180,
                 1231233444,
                 "tri",

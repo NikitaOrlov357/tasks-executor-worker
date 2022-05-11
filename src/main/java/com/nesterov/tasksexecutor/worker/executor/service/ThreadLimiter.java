@@ -1,13 +1,13 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ThreadLimiter extends Thread {
-    Thread thread;
-    ExternalConfigs.ExecutorConfig executorConfig;
+    private final Thread thread;
+    private final ExternalConfigs.ExecutorConfig executorConfig;
 
     @Override
     public void run (){

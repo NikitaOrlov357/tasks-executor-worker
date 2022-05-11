@@ -1,8 +1,10 @@
-package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
+package com.nesterov.tasksexecutor.worker.scheduler.dao;
 
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.implementations.RegularTasksDbDao;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.implementations.RegularTasksDummyDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

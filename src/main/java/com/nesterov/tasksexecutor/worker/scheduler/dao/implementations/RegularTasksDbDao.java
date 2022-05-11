@@ -22,7 +22,6 @@ public class RegularTasksDbDao implements CommandsDao {
 
     @Override
     public List<Command> getCurrentTasks(){
-
         JdbcTemplate jdbcTemplate = new JdbcTemplate(hikariDataSource);
         long unixTimeInMilliseconds = System.currentTimeMillis();
         log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
@@ -31,17 +30,7 @@ public class RegularTasksDbDao implements CommandsDao {
         log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(
-                sql,
-                (rs, rowNum)->
-                    new Command(
-                            rs.getInt("id"),
-                            rs.getString("command"),
-                            CommandType.valueOf(rs.getString("type").toUpperCase(Locale.ROOT)),
-                            rs.getLong("regularity"),
-                            rs.getLong("start"),
-                            rs.getString("owner"),
-                            rs.getDate("time")
-                    )
+                sql, new CommandMapper()
         );
     }
 }

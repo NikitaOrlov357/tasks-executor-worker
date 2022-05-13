@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
+import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.runners.Result;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
@@ -13,18 +14,24 @@ import java.util.concurrent.ExecutionException;
 public class ExecutorThread extends Thread {
     private final Command command;
     private final Runner runner;
+    private final ExternalConfigs.ExecutorConfig executorConfig;
 
-    public ExecutorThread(Command command, Runner runner) {
+    public ExecutorThread(Command command, Runner runner, ExternalConfigs.ExecutorConfig executorConfig) {
         this.command = command;
         this.runner = runner;
+        this.executorConfig = executorConfig;
     }
 
     @Override
     public void run() {
 
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
+        Thread thread = new Thread(executorFutureTask);
+        ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Timer timer = new Timer();
         Result result = null;
+        thread.start();
+        threadLimiter.start();
 
         new Thread(executorFutureTask).start();
         timer.start();
@@ -34,7 +41,7 @@ public class ExecutorThread extends Thread {
             timer.stop();
 
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+           result = new Result(false,"the execution time was exceeded");
         }
 
         if (result != null) {
@@ -42,9 +49,7 @@ public class ExecutorThread extends Thread {
             log.info("Execution time :" + resultOfCommands);
             log.info("command = {}, success = {} ", command, result.isSuccess());
             log.info("Message = {}", result.getMessage());
-
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
-
     }
 }

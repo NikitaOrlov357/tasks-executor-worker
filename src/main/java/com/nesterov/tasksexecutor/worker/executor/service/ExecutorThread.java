@@ -21,21 +21,30 @@ public class ExecutorThread extends Thread {
 
     @Override
     public void run() {
-        ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
-        new Thread(executorFutureTask).start();
 
+        ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
+        Timer timer = new Timer();
         Result result = null;
+
+        new Thread(executorFutureTask).start();
+        timer.start();
 
         try {
             result = executorFutureTask.get();
-            long timeOfMethod = Timer.doAndGetTime(new ExecutorThread(command,runner)::start, TimeUnit.MILLISECONDS);
+            timer.stop();
+
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         if (result != null) {
+            long resultOfCommands = timer.getTime();
+            log.info("Execution time :" + resultOfCommands);
             log.info("command = {}, success = {} ", command, result.isSuccess());
             log.info("Message = {}", result.getMessage());
+
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
+
     }
 }

@@ -31,7 +31,7 @@ public class Timer {
         return (finish - start) / generateValue(unit);
     }
 
-    public static long generateValue(TimeUnit unit) {
+    private static long generateValue(TimeUnit unit) {
         long value = 1;
         switch (unit) {
             case SECONDS:

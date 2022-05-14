@@ -3,6 +3,7 @@ package com.nesterov.tasksexecutor.worker.executor.service;
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.runners.Result;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.ResultStore;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +27,7 @@ public class ExecutorThread extends Thread {
         Thread thread = new Thread(executorFutureTask);
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Result result = null;
+        ResultStore resultStore = new ResultStore(result,command, result.isSuccess());
         thread.start();
         threadLimiter.start();
 
@@ -36,8 +38,11 @@ public class ExecutorThread extends Thread {
         }
 
         if (result != null) {
-            log.info("command = {}, success = {} ", command, result.isSuccess());
-            log.info("Message = {}", result.getMessage());
+            resultStore.getSuccess(command, result.isSuccess());
+            resultStore.showLogOfSuccess();
+            log.info("Message = {}", resultStore.getMessageOfResult(result));
+            //log.info("command = {}, success = {} ", command, result.isSuccess());
+
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

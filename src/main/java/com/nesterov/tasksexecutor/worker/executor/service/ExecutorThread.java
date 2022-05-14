@@ -29,11 +29,9 @@ public class ExecutorThread extends Thread {
         Thread thread = new Thread(executorFutureTask);
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Timer timer = new Timer();
-        Result result = null;
+        Result result;
         thread.start();
         threadLimiter.start();
-
-        new Thread(executorFutureTask).start();
         timer.start();
 
         try {
@@ -41,10 +39,12 @@ public class ExecutorThread extends Thread {
             timer.stop();
 
         } catch (InterruptedException | ExecutionException e) {
+
            result = new Result(false,"the execution time was exceeded");
         }
 
         if (result != null) {
+
             long resultOfCommands = timer.getTime();
             log.info("Execution time :" + resultOfCommands);
             log.info("command = {}, success = {} ", command, result.isSuccess());

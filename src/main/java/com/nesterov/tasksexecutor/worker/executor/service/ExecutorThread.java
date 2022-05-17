@@ -27,7 +27,6 @@ public class ExecutorThread extends Thread {
         Thread thread = new Thread(executorFutureTask);
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Result result = null;
-        ResultStore resultStore = new ResultStore(result,command, result.isSuccess());
         thread.start();
         threadLimiter.start();
 
@@ -37,8 +36,11 @@ public class ExecutorThread extends Thread {
            result = new Result(false,"the execution time was exceeded");
         }
 
+        ResultStore resultStore = new ResultStore(result,command);
+
+
         if (result != null) {
-            resultStore.getSuccess(command, result.isSuccess());
+            //resultStore.getSuccess(command, result.isSuccess());
             resultStore.showLogOfSuccess();
             log.info("Message = {}", resultStore.getMessageOfResult(result));
             //log.info("command = {}, success = {} ", command, result.isSuccess());

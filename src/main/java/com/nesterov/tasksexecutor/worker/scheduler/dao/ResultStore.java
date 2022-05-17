@@ -6,17 +6,16 @@ import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+
 public class ResultStore {
     private final Result result;
     private final Command command;
-    private boolean isSuccess;
     private long workTime;
 
 
-    public ResultStore(Result result, Command command, boolean isSuccess) {
+    public ResultStore(Result result, Command command) {
         this.result = result;
         this.command = command;
-        this.isSuccess = isSuccess;
     }
 
     //Возвращаем время выполнения команды
@@ -24,9 +23,6 @@ public class ResultStore {
         return workTime = timer.getTime();
     }
 
-    public boolean getSuccess(Command command,boolean isSuccess){
-        return this.isSuccess = isSuccess;
-    }
     public void showLogOfSuccess(){
         log.info("command = {}, success = {} ", command, result.isSuccess());
     }

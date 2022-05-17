@@ -3,6 +3,7 @@ package com.nesterov.tasksexecutor.worker.executor.service;
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.runners.Result;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.ResultStore;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
@@ -15,6 +16,8 @@ public class ExecutorThread extends Thread {
     private final Command command;
     private final Runner runner;
     private final ExternalConfigs.ExecutorConfig executorConfig;
+    private final Timer timer = new Timer();
+
 
     public ExecutorThread(Command command, Runner runner, ExternalConfigs.ExecutorConfig executorConfig) {
         this.command = command;
@@ -28,7 +31,6 @@ public class ExecutorThread extends Thread {
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
         Thread thread = new Thread(executorFutureTask);
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
-        Timer timer = new Timer();
         Result result;
         thread.start();
         threadLimiter.start();
@@ -42,13 +44,13 @@ public class ExecutorThread extends Thread {
 
            result = new Result(false,"the execution time was exceeded");
         }
+        ResultStore resultStore = new ResultStore(result,command,timer);
 
         if (result != null) {
 
-            long resultOfCommands = timer.getTime();
-            log.info("Execution time :" + resultOfCommands);
-            log.info("command = {}, success = {} ", command, result.isSuccess());
-            log.info("Message = {}", result.getMessage());
+            log.info("Execution time :" + resultStore.getTimer().getTime());
+            log.info("command = {}, success = {} ", resultStore.getCommand(), resultStore.getResult().isSuccess());
+            log.info("Message = {}", resultStore.getResult().getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

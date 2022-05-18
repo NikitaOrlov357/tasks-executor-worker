@@ -1,5 +1,6 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dto;
 
+import com.nesterov.tasksexecutor.worker.executor.service.CommandType;
 import lombok.Value;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 public class Command {
     int id;
     String command;
-    String type;
+    CommandType type;
     long regularity;
     long start;
     String owner;

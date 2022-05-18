@@ -20,9 +20,9 @@ public class RunnerSwitchService {
     @Nullable
     public Runner getRunner(Command command) {
         switch (command.getType()) {
-            case CommandTypes.CMD:
+            case CMD:
                 return cmdRunner;
-            case CommandTypes.BASH:
+            case BASH:
                 return bashRunner;
             default:
                 return null;

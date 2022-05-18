@@ -29,6 +29,6 @@ public class RegularTasksDbDao implements CommandsDao {
         String sql = " SELECT commands.id, command, type, regularity, start, name, time FROM commands INNER JOIN commands_type on commands.type_id = commands_type.id INNER JOIN owners on owners.id = commands.id WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
         log.debug("sql = {} ", sql);
 
-        return null;
+        return jdbcTemplate.query(sql,new CommandMapper());
     }
 }

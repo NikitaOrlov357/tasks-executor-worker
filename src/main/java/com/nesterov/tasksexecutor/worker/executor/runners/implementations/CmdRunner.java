@@ -1,6 +1,6 @@
 package com.nesterov.tasksexecutor.worker.executor.runners.implementations;
 
-import com.nesterov.tasksexecutor.worker.executor.runners.Result;
+import com.nesterov.tasksexecutor.worker.executor.runners.RunnerResult;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.logger.ResultLogger;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
@@ -8,8 +8,6 @@ import com.nesterov.tasksexecutor.worker.utils.StreamUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.Date;
-import java.util.concurrent.Callable;
 
 import static com.nesterov.tasksexecutor.worker.utils.StringUtils.isNotBlank;
 
@@ -24,18 +22,18 @@ public class CmdRunner implements Runner {
     }
 
     @Override
-    public Result run(Command command) {
-        Result result;
+    public RunnerResult run(Command command) {
+        RunnerResult runnerResult;
 
         try {
             Process process = Runtime.getRuntime().exec("cmd /c " + command.getCommand());
-            result = getResult(process);
+            runnerResult = getResult(process);
         }
         catch (IOException exception){
-            result = new Result(false,"Process wasn't finish for Command " + command);
+            runnerResult = new RunnerResult(false,"Process wasn't finish for Command " + command);
         }
 
-        return result;
+        return runnerResult;
     }
 
     private String getErrorString(Process process) throws IOException {
@@ -46,7 +44,7 @@ public class CmdRunner implements Runner {
         return StreamUtils.getStringFromStream(process.getInputStream());
     }
 
-    private Result getResult(Process process) throws IOException {
+    private RunnerResult getResult(Process process) throws IOException {
         String errorString = getErrorString(process);
         String inputString = getInputString(process);
 
@@ -55,10 +53,10 @@ public class CmdRunner implements Runner {
         }
 
         if (isNotBlank(errorString)){
-            return new Result(false, errorString);
+            return new RunnerResult(false, errorString);
         }
         else{
-            return new Result(true, inputString);
+            return new RunnerResult(true, inputString);
         }
     }
 }

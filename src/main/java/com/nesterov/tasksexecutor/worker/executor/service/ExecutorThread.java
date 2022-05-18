@@ -1,9 +1,9 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.runners.Result;
+import com.nesterov.tasksexecutor.worker.executor.runners.RunnerResult;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
-import com.nesterov.tasksexecutor.worker.scheduler.dao.StoreExecutionOfCommand;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.ExecutionResult;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
@@ -30,25 +30,25 @@ public class ExecutorThread extends Thread {
         Thread thread = new Thread(executorFutureTask);
         Timer timer = new Timer();
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
-        Result result;
+        RunnerResult runnerResult;
         thread.start();
         threadLimiter.start();
         timer.start();
 
         try {
-            result = executorFutureTask.get();
+            runnerResult = executorFutureTask.get();
             timer.stop();
 
         } catch (InterruptedException | ExecutionException e) {
 
-           result = new Result(false,"the execution time was exceeded");
+           runnerResult = new RunnerResult(false,"the execution time was exceeded");
         }
-        StoreExecutionOfCommand storeExecutionOfCommand = new StoreExecutionOfCommand(result, command, timer.getTime());
+        ExecutionResult executionResult = new ExecutionResult(runnerResult, command, timer.getTime());
 
-        if (result != null) {
-            log.info("Execution time :" + storeExecutionOfCommand.getTime());
-            log.info("command = {}, success = {} ", storeExecutionOfCommand.getCommand(), storeExecutionOfCommand.getResult().isSuccess());
-            log.info("Message = {}", storeExecutionOfCommand.getResult().getMessage());
+        if (runnerResult != null) {
+            log.info("Execution time :" + executionResult.getTime());
+            log.info("command = {}, success = {} ", executionResult.getCommand(), executionResult.getRunnerResult().isSuccess());
+            log.info("Message = {}", executionResult.getRunnerResult().getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

@@ -16,7 +16,6 @@ public class ExecutorThread extends Thread {
     private final Command command;
     private final Runner runner;
     private final ExternalConfigs.ExecutorConfig executorConfig;
-    private final Timer timer = new Timer();
 
 
     public ExecutorThread(Command command, Runner runner, ExternalConfigs.ExecutorConfig executorConfig) {
@@ -30,6 +29,7 @@ public class ExecutorThread extends Thread {
 
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
         Thread thread = new Thread(executorFutureTask);
+        Timer timer = new Timer();
         ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Result result;
         thread.start();
@@ -47,7 +47,7 @@ public class ExecutorThread extends Thread {
         ResultStore resultStore = new ResultStore(result, command, timer.getTime());
 
         if (result != null) {
-            log.info("Execution time :" + timer.getTime());
+            log.info("Execution time :" + resultStore.getTime());
             log.info("command = {}, success = {} ", resultStore.getCommand(), resultStore.getResult().isSuccess());
             log.info("Message = {}", resultStore.getResult().getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);

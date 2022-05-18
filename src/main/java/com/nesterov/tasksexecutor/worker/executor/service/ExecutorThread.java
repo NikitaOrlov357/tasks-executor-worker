@@ -44,11 +44,10 @@ public class ExecutorThread extends Thread {
 
            result = new Result(false,"the execution time was exceeded");
         }
-        ResultStore resultStore = new ResultStore(result,command,timer);
+        ResultStore resultStore = new ResultStore(result, command, timer.getTime());
 
         if (result != null) {
-
-            log.info("Execution time :" + resultStore.getTimer().getTime());
+            log.info("Execution time :" + timer.getTime());
             log.info("command = {}, success = {} ", resultStore.getCommand(), resultStore.getResult().isSuccess());
             log.info("Message = {}", resultStore.getResult().getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);

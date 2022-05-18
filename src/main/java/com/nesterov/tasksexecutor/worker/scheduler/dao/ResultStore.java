@@ -9,25 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Value
 public class ResultStore {
-    private final Result result;
-    private final Command command;
-    private final Timer timer;
-
-    //Возвращаем время выполнения команды
-    /*
-    public long getWorkTime (Timer timer){
-        return workTime = timer.getTime();
-    }
-
-    public void showLogOfSuccess(){
-        log.info("command = {}, success = {} ", command, result.isSuccess());
-    }
-
-    public String getMessageOfResult(Result result){
-        return result.getMessage();
-    }
-
-     */
-
+    Result result;
+    Command command;
+    long time;
 
 }

@@ -1,10 +1,10 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.runners.Result;
+import com.nesterov.tasksexecutor.worker.executor.runners.RunnerResult;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
+import com.nesterov.tasksexecutor.worker.scheduler.dao.ExecutionResult;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
-import com.nesterov.tasksexecutor.worker.utils.timer.TimeUnit;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +15,7 @@ public class ExecutorThread extends Thread {
     private final Command command;
     private final Runner runner;
     private final ExternalConfigs.ExecutorConfig executorConfig;
+
 
     public ExecutorThread(Command command, Runner runner, ExternalConfigs.ExecutorConfig executorConfig) {
         this.command = command;
@@ -27,28 +28,27 @@ public class ExecutorThread extends Thread {
 
         ExecutorFutureTask executorFutureTask = new ExecutorFutureTask(runner, command);
         Thread thread = new Thread(executorFutureTask);
-        ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
         Timer timer = new Timer();
-        Result result;
+        ThreadLimiter threadLimiter = new ThreadLimiter(thread, executorConfig);
+        RunnerResult runnerResult;
         thread.start();
         threadLimiter.start();
         timer.start();
 
         try {
-            result = executorFutureTask.get();
+            runnerResult = executorFutureTask.get();
             timer.stop();
 
         } catch (InterruptedException | ExecutionException e) {
 
-           result = new Result(false,"the execution time was exceeded");
+           runnerResult = new RunnerResult(false,"the execution time was exceeded");
         }
+        ExecutionResult executionResult = new ExecutionResult(runnerResult, command, timer.getTime());
 
-        if (result != null) {
-
-            long resultOfCommands = timer.getTime();
-            log.info("Execution time :" + resultOfCommands);
-            log.info("command = {}, success = {} ", command, result.isSuccess());
-            log.info("Message = {}", result.getMessage());
+        if (runnerResult != null) {
+            log.info("Execution time :" + executionResult.getTime());
+            log.info("command = {}, success = {} ", executionResult.getCommand(), executionResult.getRunnerResult().isSuccess());
+            log.info("Message = {}", executionResult.getRunnerResult().getMessage());
             //resultLogger.log(command.getCommand(), result.isSuccess(), result.getMessage(), command.getOwner(), date, 121241124);
         }
     }

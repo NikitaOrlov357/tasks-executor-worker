@@ -4,6 +4,14 @@
     <groupId>com.nesterov</groupId>
     <artifactId>tasks-executor-worker</artifactId>
     <version>01</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <junit-jupiter.version>5.3.2</junit-jupiter.version>
+        <mockito.version>2.24.0</mockito.version>
+        <java.version>11</java.version>
+        <maven.compiler.version>2.5.1</maven.compiler.version>
+    </properties>
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -37,11 +45,24 @@
         <version>42.3.1</version>
     </dependency>
 
+
+    <!-- TESTS -->
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>4.5.1</version>
+        <scope>test</scope>
+    </dependency>
+
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <version>2.5.0</version>
+    </dependency>
+
 </dependencies>
-    <properties>
-        <java.version>11</java.version>
-        <maven.compiler.version>2.5.1</maven.compiler.version>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -51,6 +72,17 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

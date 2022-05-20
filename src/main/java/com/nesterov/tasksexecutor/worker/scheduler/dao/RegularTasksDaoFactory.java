@@ -22,5 +22,4 @@ public class RegularTasksDaoFactory {
         }
         return new RegularTasksDbDao(dataSource, schedulerConfig);
     }
-
 }

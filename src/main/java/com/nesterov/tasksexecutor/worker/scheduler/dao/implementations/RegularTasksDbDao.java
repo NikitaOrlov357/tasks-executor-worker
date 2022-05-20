@@ -1,7 +1,6 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.service.CommandType;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor

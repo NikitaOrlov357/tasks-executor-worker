@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.scheduler.dao;
+package com.nesterov.tasksexecutor.worker.executor.dto;
 
 import com.nesterov.tasksexecutor.worker.executor.runners.RunnerResult;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;

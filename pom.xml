@@ -4,6 +4,13 @@
     <groupId>com.nesterov</groupId>
     <artifactId>tasks-executor-worker</artifactId>
     <version>01</version>
+
+    <properties>
+        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <junit.platform.version>1.8.1</junit.platform.version>
+        <java.version>11</java.version>
+        <maven.compiler.version>2.5.1</maven.compiler.version>
+    </properties>
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -36,12 +43,32 @@
         <artifactId>postgresql</artifactId>
         <version>42.3.1</version>
     </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+    </dependency>
 
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-suite</artifactId>
+        <version>${junit.platform.version}</version>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
-    <properties>
-        <java.version>11</java.version>
-        <maven.compiler.version>2.5.1</maven.compiler.version>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -51,6 +78,12 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
             </plugin>
         </plugins>
     </build>

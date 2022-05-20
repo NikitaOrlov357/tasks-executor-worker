@@ -1,7 +1,7 @@
 package com.nesterov.tasksexecutor.worker.scheduler.services;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
-import com.nesterov.tasksexecutor.worker.executor.service.ExecutorService;
+import com.nesterov.tasksexecutor.worker.executor.service.execution.ExecutorService;
 import com.nesterov.tasksexecutor.worker.scheduler.dao.CommandsDao;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.stereotype.Service;

@@ -1,24 +1,16 @@
 package com.nesterov.tasksexecutor.worker.executor.service;
 
-import com.nesterov.tasksexecutor.worker.executor.dto.CommandType;
+import com.nesterov.tasksexecutor.worker.scheduler.dto.CommandType;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
 import com.nesterov.tasksexecutor.worker.executor.runners.implementations.BashRunner;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
-import com.nesterov.tasksexecutor.worker.scheduler.services.SchedulerService;
-import org.assertj.core.api.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

@@ -48,6 +48,6 @@ public class RunnerSwitchServiceTest {
 
         System.out.println(runner.getClass());
 
-        Assertions.assertEquals(1, 2);
+
     }
 }

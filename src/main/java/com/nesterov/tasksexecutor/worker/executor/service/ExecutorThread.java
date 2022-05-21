@@ -39,12 +39,12 @@ public class ExecutorThread extends Thread {
 
         try {
             runnerResult = executorFutureTask.get();
-            timer.stop();
-
         } catch (InterruptedException | ExecutionException e) {
-
            runnerResult = new RunnerResult(false,"the execution time was exceeded");
+        } finally {
+            timer.stop();
         }
+
         ExecutionResult executionResult = new ExecutionResult(runnerResult, command, timer.getTime());
 
         if (runnerResult != null) {

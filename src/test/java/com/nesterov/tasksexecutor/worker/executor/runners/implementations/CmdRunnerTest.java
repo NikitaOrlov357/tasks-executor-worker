@@ -48,9 +48,8 @@ public class CmdRunnerTest {
         );
 
         String os = System.getProperty("os.name");
-        System.out.println(os);
 
-
+        assertEquals("sad", os);
         RunnerResult result = cmdRunner.run(command);
 
 

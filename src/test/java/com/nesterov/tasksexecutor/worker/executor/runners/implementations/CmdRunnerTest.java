@@ -29,6 +29,12 @@ public class CmdRunnerTest {
                 new Date()
         );
 
+        String os = System.getProperty("os.name");
+
+        if (!os.startsWith("Windows")){
+            return;
+        }
+
         RunnerResult result = cmdRunner.run(command);
 
         assertTrue(result.isSuccess());

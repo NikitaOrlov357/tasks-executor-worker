@@ -49,10 +49,11 @@ public class CmdRunnerTest {
 
         String os = System.getProperty("os.name");
 
-        assertEquals("sad", os);
+        if (!os.startsWith("Windows")){
+            return;
+        }
+
         RunnerResult result = cmdRunner.run(command);
-
-
 
         assertFalse(result.isSuccess());
         assertNotNull(result.getMessage());

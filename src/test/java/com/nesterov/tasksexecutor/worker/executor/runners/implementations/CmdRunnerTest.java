@@ -47,7 +47,13 @@ public class CmdRunnerTest {
                 new Date()
         );
 
+        String os = System.getProperty("os.name");
+        System.out.println(os);
+
+
         RunnerResult result = cmdRunner.run(command);
+
+
 
         assertFalse(result.isSuccess());
         assertNotNull(result.getMessage());

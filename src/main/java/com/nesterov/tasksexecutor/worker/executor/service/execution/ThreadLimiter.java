@@ -1,4 +1,4 @@
-package com.nesterov.tasksexecutor.worker.executor.service;
+package com.nesterov.tasksexecutor.worker.executor.service.execution;
 
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import lombok.RequiredArgsConstructor;

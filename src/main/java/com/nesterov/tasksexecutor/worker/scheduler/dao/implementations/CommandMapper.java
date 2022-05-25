@@ -1,6 +1,6 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dao.implementations;
 
-import com.nesterov.tasksexecutor.worker.executor.service.CommandType;
+import com.nesterov.tasksexecutor.worker.scheduler.dto.CommandType;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import org.springframework.jdbc.core.RowMapper;
 

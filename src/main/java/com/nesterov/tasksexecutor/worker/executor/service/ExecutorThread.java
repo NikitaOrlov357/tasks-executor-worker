@@ -3,7 +3,9 @@ package com.nesterov.tasksexecutor.worker.executor.service;
 import com.nesterov.tasksexecutor.worker.configs.applicationConfigs.ExternalConfigs;
 import com.nesterov.tasksexecutor.worker.executor.runners.RunnerResult;
 import com.nesterov.tasksexecutor.worker.executor.runners.Runner;
-import com.nesterov.tasksexecutor.worker.scheduler.dao.ExecutionResult;
+import com.nesterov.tasksexecutor.worker.executor.service.execution.ExecutorFutureTask;
+import com.nesterov.tasksexecutor.worker.executor.service.execution.ThreadLimiter;
+import com.nesterov.tasksexecutor.worker.executor.dto.ExecutionResult;
 import com.nesterov.tasksexecutor.worker.scheduler.dto.Command;
 import com.nesterov.tasksexecutor.worker.utils.timer.Timer;
 import lombok.extern.slf4j.Slf4j;
@@ -37,12 +39,12 @@ public class ExecutorThread extends Thread {
 
         try {
             runnerResult = executorFutureTask.get();
-            timer.stop();
-
         } catch (InterruptedException | ExecutionException e) {
-
            runnerResult = new RunnerResult(false,"the execution time was exceeded");
+        } finally {
+            timer.stop();
         }
+
         ExecutionResult executionResult = new ExecutionResult(runnerResult, command, timer.getTime());
 
         if (runnerResult != null) {

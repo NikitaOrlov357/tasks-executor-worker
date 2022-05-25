@@ -1,6 +1,5 @@
 package com.nesterov.tasksexecutor.worker.scheduler.dto;
 
-import com.nesterov.tasksexecutor.worker.executor.service.CommandType;
 import lombok.Value;
 
 import java.util.Date;

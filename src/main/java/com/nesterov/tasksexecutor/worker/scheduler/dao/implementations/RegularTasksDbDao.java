@@ -24,7 +24,7 @@ public class RegularTasksDbDao implements CommandsDao {
         long unixTimeInMilliseconds = System.currentTimeMillis();
         log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
         long regularity = schedulerConfig.getSchedulerRegularity();
-        String sql = " SELECT command.id, command, type, regularity, start, name, time FROM command INNER JOIN command_type on command.type_id = command_type.id INNER JOIN owner on owner.id = command.id WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
+        String sql = " SELECT command.id, command.command, type, regularity, start, name, time FROM command INNER JOIN command_type on command_type.id = command.id INNER JOIN owner on owner.id = command.id WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
         log.debug("sql = {} ", sql);
 
         return jdbcTemplate.query(sql,new CommandMapper());

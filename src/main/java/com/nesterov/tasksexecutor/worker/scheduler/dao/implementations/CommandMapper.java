@@ -18,7 +18,7 @@ public class CommandMapper implements RowMapper<Command> {
                 CommandType.valueOf(rs.getString("type").toUpperCase(Locale.ROOT)),
                 rs.getLong("regularity"),
                 rs.getLong("start"),
-                rs.getString("owner"),
+                rs.getString("name"),
                 rs.getDate("time")
         );
     }

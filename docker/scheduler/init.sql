@@ -1,20 +1,19 @@
-DROP TABLE IF EXISTS command;
-DROP TABLE IF EXISTS command_type;
-DROP TABLE IF EXISTS owner;
 DROP TABLE IF EXISTS log;
+DROP TABLE IF EXISTS command;
+DROP TABLE IF EXISTS command_type  ;
+DROP TABLE IF EXISTS owner;
 
 CREATE TABLE command_type
 (
     id SERIAL NOT NULL PRIMARY KEY ,--уникальный номер записи
-    type VARCHAR NOT NULL, -- тип команды,
+    type VARCHAR NOT NULL -- тип команды,
 
 );
 
 CREATE TABLE owner
 (
     id SERIAL NOT NULL PRIMARY KEY,--уникальный номер записи
-    name VARCHAR NOT NULL, -- имя команды
-
+    name VARCHAR NOT NULL -- имя команды
 
 );
 
@@ -26,7 +25,7 @@ CREATE TABLE command
     regularity BIGINT NOT NULL, -- регулярность выполнения в секундах
     start BIGINT NOT NULL, -- время начала работы "UNIX_TIME"
     owner_id INT NOT NULL REFERENCES owner (id), -- кто создал задачу
-    time TIMESTAMP NOT NULL DEFAULT now(),  -- время создания задачи
+    time TIMESTAMP NOT NULL DEFAULT now()  -- время создания задачи
 
 
 );
@@ -44,6 +43,6 @@ CREATE TABLE log(
     message VARCHAR NOT NULL, -- сообщение
     owner VARCHAR NOT NULL, -- кто создал задачу
     start TIMESTAMP NOT NULL, -- время начала задачи
-    duration BIGINT NOT NULL,  -- время длит-ти задачи (в милисек)
+    duration BIGINT NOT NULL  -- время длит-ти задачи (в милисек)
 
 );

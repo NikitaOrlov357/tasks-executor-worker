@@ -3,20 +3,17 @@ DROP TABLE IF EXISTS command;
 DROP TABLE IF EXISTS command_type;
 DROP TABLE IF EXISTS owner;
 
-CREATE TABLE command_type
-(
-    id SERIAL NOT NULL PRIMARY KEY, --уникальный номер записи
+CREATE TABLE command_type(
+    id SERIAL NOT NULL PRIMARY KEY, -- уникальный номер записи
     type VARCHAR NOT NULL -- тип команды,
 );
 
-CREATE TABLE owner
-(
-    id SERIAL NOT NULL PRIMARY KEY, --уникальный номер записи
+CREATE TABLE owner(
+    id SERIAL NOT NULL PRIMARY KEY,--уникальный номер записи
     name VARCHAR NOT NULL -- имя пользователя
 );
 
-CREATE TABLE command
-(
+CREATE TABLE command(
     id serial NOT NULL PRIMARY KEY, -- уникальный номер записи
     command VARCHAR NOT NULL, -- команда для выполнения
     type_id INT NOT NULL REFERENCES command_type (id), -- id типа команды
@@ -28,7 +25,7 @@ CREATE TABLE command
 
 CREATE TABLE log(
     id serial NOT NULL PRIMARY KEY, -- уникальный номер записи
-    command_id INT NOT NULL REFERENCES command(id), -- команда для выполнения
+    command_id INT NOT NULL REFERENCES command(id), -- id команды
     result BOOLEAN NOT NULL, -- результат
     message VARCHAR NOT NULL, -- сообщение
     owner VARCHAR NOT NULL, -- кто создал задачу

@@ -24,10 +24,10 @@ public class RegularTasksDbDao implements CommandsDao {
         long unixTimeInMilliseconds = System.currentTimeMillis();
         log.debug("unixTimeInMilliseconds = {} ", unixTimeInMilliseconds);
         long regularity = schedulerConfig.getSchedulerRegularity();
-        String sql = " SELECT ?,?,?,?,?,?,? FROM command INNER JOIN command_type on command_type.id = command.id INNER JOIN owner on owner.id = command.id WHERE (((" + unixTimeInMilliseconds + " - start) / " + regularity + " * " + regularity + ") % " + " regularity) " + " = 0 ";
-        Object[] prepareObj = new Object[]{"command.id", "command.command", "type", "regularity", "start", "name", "time"};
+        String sql = " SELECT command.id, command.command, type, regularity, start, name, time FROM command INNER JOIN command_type on command_type.id = command.id INNER JOIN owner on owner.id = command.id WHERE (((" + "?" + " - start) / " + "?" + " * " + "?" + ") % " + " ?) " + " = 0 ";
+        Object[] prepareObj = new Object[]{unixTimeInMilliseconds, regularity, regularity, regularity};
         log.debug("sql = {} ", sql);
 
-        return jdbcTemplate.query(sql, new CommandMapper(), prepareObj);
+        return jdbcTemplate.query(sql, new CommandMapper(),prepareObj);
     }
 }

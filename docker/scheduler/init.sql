@@ -28,7 +28,6 @@ CREATE TABLE log(
     command_id INT NOT NULL REFERENCES command(id), -- id команды
     result BOOLEAN NOT NULL, -- результат
     message VARCHAR NOT NULL, -- сообщение
-    owner VARCHAR NOT NULL, -- кто создал задачу
     start TIMESTAMP NOT NULL, -- время начала задачи
     duration BIGINT NOT NULL  -- время длит-ти задачи (в милисек)
 );

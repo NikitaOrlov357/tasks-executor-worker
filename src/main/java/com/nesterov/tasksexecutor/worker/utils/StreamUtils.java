@@ -14,6 +14,6 @@ public class StreamUtils {
                 output.append(line).append("\n");
             }
         }
-        return output.toString();
+        return output.toString().trim();
     }
 }
